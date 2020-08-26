@@ -84,7 +84,7 @@ local supported_token_auth_methods = {
 }
 
 local openidc = {
-  _VERSION = "1.7.3"
+  _VERSION = "1.7.3.0"
 }
 openidc.__index = openidc
 
@@ -139,8 +139,19 @@ local function openidc_validate_id_token(opts, id_token, nonce)
 
   -- check issuer
   if opts.discovery.issuer ~= id_token.iss then
-    log(ERROR, "issuer \"", id_token.iss, "\" in id_token is not equal to the issuer from the discovery document \"", opts.discovery.issuer, "\"")
-    return false
+    -- With Azure, the discovery issuer has a placeholder in it, so the returned one will never match directly.
+    -- Instead, check that the issuers match for everything but the tenant GUID.
+    if (opts.discovery.issuer == 'https://sts.windows.net/{tenantid}/' and
+        id_token.iss:match('^https://sts.windows.net/[0-9a-z-]+/$')) or
+       (opts.discovery.issuer == 'https://login.microsoftonline.com/{tenantid}/v2.0' and
+        id_token.iss:match('^https://login.microsoftonline.com/[0-9a-z-]+/v2.0$')) or
+          (opts.discovery.issuer == 'https://login.microsoftonline.us/{tenantid}/v2.0' and
+          id_token.iss:match('^https://login.microsoftonline.us/[0-9a-z-]+/v2.0$')) then
+        log(DEBUG, "issuer \"", id_token.iss, "\" in id_token matches the issuer from the discovery document \"", opts.discovery.issuer, "\"")
+    else
+      log(ERROR, "issuer \"", id_token.iss, "\" in id_token is not equal to the issuer from the discovery document \"", opts.discovery.issuer, "\"")
+      return false
+    end
   end
 
   -- check sub

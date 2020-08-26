@@ -1,8 +1,15 @@
 package = "lua-resty-openidc"
+<<<<<<< HEAD:lua-resty-openidc-1.7.3-1.rockspec
 version = "1.7.3-1"
 source = {
     url = "git://github.com/zmartzone/lua-resty-openidc",
     tag = "v1.7.3",
+=======
+version = "1.7.3-1-0"
+source = {
+    url = "git://github.com/brianloss/lua-resty-openidc",
+    tag = "v1.7.3-0",
+>>>>>>> 5063fba... Support Azure issuers.:lua-resty-openidc-1.7.3-0.rockspec
     dir = "lua-resty-openidc"
 }
 description = {
@@ -18,7 +25,7 @@ description = {
 
         It can be used as a reverse proxy terminating OAuth/OpenID Connect in front of an origin server so that the origin server/services can be protected with the relevant standards without implementing those on the server itself.
     ]],
-    homepage = "https://github.com/zmartzone/lua-resty-openidc",
+    homepage = "https://github.com/brianloss/lua-resty-openidc",
     license = "Apache 2.0"
 }
 dependencies = {
