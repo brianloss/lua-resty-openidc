@@ -1,15 +1,8 @@
 package = "lua-resty-openidc"
-<<<<<<< HEAD:lua-resty-openidc-1.7.3-1.rockspec
-version = "1.7.3-1"
-source = {
-    url = "git://github.com/zmartzone/lua-resty-openidc",
-    tag = "v1.7.3",
-=======
-version = "1.7.3-1-0"
+version = "1.7.3-2"
 source = {
     url = "git://github.com/brianloss/lua-resty-openidc",
-    tag = "v1.7.3-0",
->>>>>>> 5063fba... Support Azure issuers.:lua-resty-openidc-1.7.3-0.rockspec
+    tag = "v1.7.3.2",
     dir = "lua-resty-openidc"
 }
 description = {
