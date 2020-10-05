@@ -84,7 +84,7 @@ local supported_token_auth_methods = {
 }
 
 local openidc = {
-  _VERSION = "1.7.3.2"
+  _VERSION = "1.7.3.3"
 }
 openidc.__index = openidc
 
@@ -339,7 +339,7 @@ local function openidc_authorize(opts, session, target_url, prompt)
   local resty_string = require("resty.string")
 
   -- generate state and nonce
-  local state = (opts.custom_state == nil or opts.custom_state) and resty_string.to_hex(resty_random.bytes(16))
+  local state = opts.custom_state or resty_string.to_hex(resty_random.bytes(16))
   local nonce = (opts.use_nonce == nil or opts.use_nonce)
     and resty_string.to_hex(resty_random.bytes(16))
   local code_verifier = opts.use_pkce and openidc_base64_url_encode(resty_random.bytes(32))
